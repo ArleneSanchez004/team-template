@@ -5,18 +5,18 @@ class Employee {
         this.id = id;
         this.email = email;
     }
-    findName(){
+    getName(){
         return this.name;
     }
-    findId(){
+    getId(){
         return this.id;
     }
-    findEmail(){
+    getEmail(){
         return this.email;
     }
-    findRole(){
+    getRole(){
         return "Employee";
     }
 }
 
-module.exports = Employee;
+module.exports =
