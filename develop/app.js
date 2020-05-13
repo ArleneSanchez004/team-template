@@ -16,6 +16,7 @@ const idArray = [];
 function app(){
 
     function addManager(){
+        //app must start by adding a manager before adding other team members
         inquirer.prompt([
             {
                 name: "managerName",
@@ -41,13 +42,67 @@ function app(){
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
             workFellows.push(manager);
             idArray.push(answers.managerId);
-            //addTeam();
+            addTeamMembers();
         })
     }//end addManager()
+
+    function addTeamMembers(){
+        //user must choose a team member type before adding a team member
+        inquirer.prompt([
+            {
+                name: "teamMemberType",
+                type: "list",
+                message: "Which type of team member would you like to add?",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    "I am finished adding team members"
+                ]
+            }
+        ]).then(teamMemberChoice => {
+            if(teamMemberChoice.teamMemberType == "Engineer"){
+                addEngineer();
+            } else if (teamMemberChoice.teamMemberType == "Intern"){
+                addIntern();
+            } else {
+                createFinalTeam();
+            }
+        });
+    }//end addTeamMembers()
+    
+    function addEngineer(){
+        inquirer.prompt([
+            {
+                name: "engineerName",
+                type: "input",
+                message: "Enter the engineer's name."
+            },
+            {
+                name: "engineerId",
+                type: "input",
+                message: "Enter the engineer's id number."
+            },
+            {
+                name: "engineerEmail",
+                type: "input",
+                message: "Enter the engineer's email."
+            },
+            {
+                name: "engineerGithub",
+                type: "input",
+                message: "Enter the engineer's Github username."
+            }
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            workFellows.push(engineer);
+            idArray.push(answers.engineerId);
+            addTeamMembers();
+        });
+    }//end addEngineer()
+
 }//end app()
 
 app();​
-addManager();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
