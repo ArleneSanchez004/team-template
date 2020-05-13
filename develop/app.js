@@ -128,7 +128,16 @@ function app(){
             idArray.push(answers.internId);
             addTeamMembers();
         })
+    }//end addIntern()
+
+    function createFinalTeam(){
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR)
+          }
+        fs.writeFileSync(outputPath, render(workFellows), "utf-8");
     }
+
+    addManager();
 }//end app()
 
 app();​
