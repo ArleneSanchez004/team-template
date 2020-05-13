@@ -100,6 +100,35 @@ function app(){
         });
     }//end addEngineer()
 
+    function addIntern(){
+        inquirer.prompt([
+            {
+                name: "internName",
+                type: "input",
+                message: "Enter the intern's name."
+            },
+            {
+                name: "internId",
+                type: "input",
+                message: "Enter the intern's Id number."
+            },
+            {
+                name: "internEmail",
+                type: "input",
+                message: "Enter the intern's email."
+            },
+            {
+                name: "internSchool",
+                type: "input",
+                message: "Enter the intern's current school."
+            }
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            workFellows.push(intern);
+            idArray.push(answers.internId);
+            addTeamMembers();
+        })
+    }
 }//end app()
 
 app();​
