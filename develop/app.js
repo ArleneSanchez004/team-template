@@ -4,18 +4,18 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-​
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-​
+
 const render = require("./lib/htmlRenderer");
-​
+
 const workFellows = [];
 const idArray = [];
 
-function app(){
+function app() {
 
-    function addManager(){
+    function addManager() {
         //app must start by adding a manager before adding other team members
         inquirer.prompt([
             {
@@ -46,7 +46,7 @@ function app(){
         })
     }//end addManager()
 
-    function addTeamMembers(){
+    function addTeamMembers() {
         //user must choose a team member type before adding a team member
         inquirer.prompt([
             {
@@ -60,17 +60,17 @@ function app(){
                 ]
             }
         ]).then(teamMemberChoice => {
-            if(teamMemberChoice.teamMemberType == "Engineer"){
+            if (teamMemberChoice.teamMemberType == "Engineer") {
                 addEngineer();
-            } else if (teamMemberChoice.teamMemberType == "Intern"){
+            } else if (teamMemberChoice.teamMemberType == "Intern") {
                 addIntern();
             } else {
                 createFinalTeam();
             }
         });
     }//end addTeamMembers()
-    
-    function addEngineer(){
+
+    function addEngineer() {
         inquirer.prompt([
             {
                 name: "engineerName",
@@ -100,7 +100,7 @@ function app(){
         });
     }//end addEngineer()
 
-    function addIntern(){
+    function addIntern() {
         inquirer.prompt([
             {
                 name: "internName",
@@ -130,14 +130,14 @@ function app(){
         })
     }//end addIntern()
 
-    function createFinalTeam(){
+    function createFinalTeam() {
         if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR)
-          }
+        }
         fs.writeFileSync(outputPath, render(workFellows), "utf-8");
     }
 
     addManager();
 }//end app()
 
-app();​
+app();
